@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
 
-from models import User
+from models import Incedent
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -19,7 +19,7 @@ def init_login_manager(app):
     login_manager.init_app(app)
 
 def load_user(user_id):
-    user = User.query.get(user_id)
+    user = Incedent.query.get(user_id)
     return user
 
 def check_rights():
@@ -37,15 +37,14 @@ def check_rights():
 def login():
     if request.method == 'POST':
         login = request.form.get('login')
-        password = request.form.get('password')
-        if login and password:
-            user = User.query.filter_by(login=login).first()
-            if user and user.check_password(password):
+        if login:
+            user = Incedent.query.filter_by(key=login).first()
+            if user:
                 login_user(user)
                 flash('Вы успешно аутентифицированы.', 'success')
                 next = request.args.get('next')
                 return redirect(next or url_for('index'))
-        flash('Неправильный логин или пароль','danger')
+        flash('Неправильный key','danger')
     return render_template('auth/login.html')
 
 @bp.route('/logout')

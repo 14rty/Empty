@@ -43,10 +43,10 @@
                     <ul class="navbar-nav ms-auto pe-10 ">
                         {% if current_user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link {% if request.endpoint == 'calculate' %}active{% endif %}" href="{{url_for('calculate')}}">Калькулятор</a>
+                            <a class="nav-link {% if request.endpoint == 'incedents' %}active{% endif %}" href="{{url_for('lifts')}}">Лифты</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.endpoint == 'users' %}active{% endif %}" href="{{url_for('users')}}">Список пользователей</a>
+                            <a class="nav-link {% if request.endpoint == 'tickets' %}active{% endif %}" href="{{url_for('incedents')}}">Инциденты</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -83,7 +83,7 @@
     
     <footer class="footer mt-auto py-3 bg-light">
         <div class="container text-center">
-            <span class="text-muted">ОАО «Рязань Интернешнл»</span>
+            <span class="text-muted">ООО «Рабы и Галеры»</span>
         </div>
     </footer>
 
