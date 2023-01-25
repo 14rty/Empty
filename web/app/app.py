@@ -21,7 +21,7 @@ metadata = MetaData(naming_convention=convention)
 db = SQLAlchemy(app, metadata=metadata)
 migrate = Migrate(app, db)
 
-from models import User
+from models import Lift, Incedent
 from auth import bp as auth_bp, init_login_manager, check_rights
 
 
@@ -29,36 +29,19 @@ from auth import bp as auth_bp, init_login_manager, check_rights
 init_login_manager(app)
 app.register_blueprint(auth_bp)
     
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
     return render_template("index.html")
 
-@app.route('/calculate', methods=['GET', 'POST'])
-def calculate():
-    result = None
-    error_msg = None
-    if request.method == 'POST':
-        try:
-            operand1 = float(request.form.get('operand1'))
-            operand2 = float(request.form.get('operand2'))
-            operation = request.form.get('operation')
-            if operation == '+':
-                result = operand1+operand2
-            elif operation == '-':
-                result = operand1-operand2
-            elif operation == '/':
-                result = operand1/operand2
-            elif operation == '*':
-                result = operand1*operand2
-        except ValueError:
-            error_msg = 'Вводите только числа'
-        except ZeroDivisionError:
-            error_msg = 'На ноль делить нельзя'
+@app.route('/lifts')
+def lifts():
+    lifts = Lift.query.order_by(Lift.address)
 
-    response = make_response(render_template('calculate.html', result=result, error_msg=error_msg))
-    return response
+    return render_template('lifts.html', lifts = lifts)
 
-@app.route("/users")
-def users():
-    users = User.query.all()
-    return render_template("users.html", users=users)
+
+@login_required
+@app.route("/incedents")
+def incedents():
+    incedents = Incedent.query.filter()
+    return render_template("incedents.html", incedents=incedents)

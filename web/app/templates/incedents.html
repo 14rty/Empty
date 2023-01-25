@@ -5,16 +5,16 @@
     <thead>
     <tr>
         <th scope="col">#</th>
-        <th scope="col">Имя</th>
+        <th scope="col">Тип лифта</th>
+        <th scope="col">Адрес вызова</th> 
     </tr>
     </thead>
     <tbody>
-    {%for user in users%}
     <tr>
-        <th scope="row">{{loop.index}}</th>
-        <td>{{user.name}}</td>
+        <th scope="row"></th>
+        <td>{{current_user.type}}</td>
+        <td>{{current_user.address}}</td>
     </tr>
-    {%endfor%}
     </tbody>
 </table>
 {% endblock  %}

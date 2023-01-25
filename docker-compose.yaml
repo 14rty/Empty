@@ -32,7 +32,7 @@ services:
     networks:
       - default
   examapi:
-    build: .
+    image: test_app:latest
     ports:
       - 5000:5000
     networks: 
